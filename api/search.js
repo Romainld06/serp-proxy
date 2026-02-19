@@ -5,13 +5,13 @@ export default async function handler(req, res) {
 
   if (req.method === "OPTIONS") return res.status(200).end();
 
-  const { key, cx, q, gl = "fr", hl = "fr", num = "10" } = req.query;
+  const { key, q, gl = "fr", hl = "fr", num = "10" } = req.query;
 
-  if (!key || !cx || !q) {
-    return res.status(400).json({ error: "Paramètres manquants (key, cx, q)" });
+  if (!key || !q) {
+    return res.status(400).json({ error: "Paramètres manquants (key, q)" });
   }
 
-  const url = `https://www.googleapis.com/customsearch/v1?key=${key}&cx=${cx}&q=${encodeURIComponent(q)}&gl=${gl}&hl=${hl}&num=${num}`;
+  const url = `https://serpapi.com/search.json?api_key=${key}&q=${encodeURIComponent(q)}&gl=${gl}&hl=${hl}&num=${num}&engine=google`;
 
   try {
     const response = await fetch(url);
